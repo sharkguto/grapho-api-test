@@ -15,5 +15,5 @@ class GraphService(object):
         self._g_dict = g_dict
 
     def get_people(self):
-        return self._g_dict.keys()
+        return list(self._g_dict.keys())
 

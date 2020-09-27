@@ -41,6 +41,10 @@ async def get_kpis_fornec(response: Response):
     math: n(n-1)/2
     """
 
+    graph_svc = GraphService(g().friends)
+
+    return graph_svc.get_people()
+
     # g().friends.keys()
     # g().friends.items()
 
@@ -56,9 +60,7 @@ async def get_kpis_fornec(response: Response):
     #     / 2,
     #     reverse=True,
     # )
-    graph_svc = GraphService(g().friends)
-
-    return graph_svc.get_people()
+    
 
     # g().friends.items()
 
