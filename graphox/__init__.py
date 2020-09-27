@@ -51,6 +51,8 @@ async def add_process_time_header(request: Request, call_next):
 @app.on_event("startup")
 async def startup():
     async with aiofiles.open(FILEPATH, "r") as tmp_file:
+        # in Python3.6 + the dict keep the same order preserving aspect when created
+
         g().friends = json.loads(await tmp_file.read())
 
 

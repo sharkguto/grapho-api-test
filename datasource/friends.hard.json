@@ -1,0 +1,8 @@
+{
+  "Ana": ["Maria", "Vinicius", "João", "Carlos"],
+  "Maria": ["Ana", "Vinicius"],
+  "Vinicius": ["Ana", "Maria"],
+  "Luiza": ["João"],
+  "João": ["Ana", "Luiza"],
+  "Carlos": ["Ana"]
+}
