@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  graphox:
+    build:
+      context: .
+      dockerfile: devops/Dockerfile
+    ports: 
+      - 8080:8080
+    environment: 
+      - SWAGGER_DOCS=${SWAGGER_DOCS}
+      - PYTHONUNBUFFERED=1
+    restart: on-failure
+    volumes:
+      - ./datasource:/opt/graphox/datasource
