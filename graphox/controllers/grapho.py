@@ -33,7 +33,22 @@ async def get_kpis_fornec(
     return {"person": g().friends[person]}
 
 
-@router.get("/friends", tags=["friends"])
+@router.get("/not-friends/{person}", tags=["not-friends"])
+async def get_kpis_fornec(
+    response: Response, person: str = "Gustavo",
+):
+    """ 
+    Get first connection friends from person
+    """
+    if not person:
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST)
+    if not person in g().friends.keys():
+        raise HTTPException(status_code=HTTP_404_NOT_FOUND)
+
+    return {"person": g().friends[person]}
+
+
+@router.get("/friends", tags=["all"])
 async def get_kpis_fornec(response: Response):
     """
     Expected result

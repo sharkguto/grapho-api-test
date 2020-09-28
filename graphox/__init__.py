@@ -56,6 +56,12 @@ async def startup():
         g().friends = json.loads(await tmp_file.read())
 
 
+# @app.on_event("startup")
+# def startup():
+#     with open(FILEPATH, "r") as tmp_file:
+#         g().friends = json.loads(tmp_file.read())
+
+
 @app.on_event("shutdown")
 async def shutdown():
     pass
