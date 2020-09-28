@@ -142,5 +142,4 @@ class GraphService(object):
         # {f"{v}": map(lambda k: k,k) for k, v in count_paths.items()}
 
         return list(self._g_dict.keys())
-        # list(self._g_dict.keys())
 
