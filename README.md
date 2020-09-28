@@ -66,7 +66,7 @@ pytest --cov=graphox tests/ --cov-fail-under=70 --disable-pytest-warnings
 
   ```
 
-- docker
+- docker - gunicorn  - production mode
 
   ```bash
   wrk -c 400 -t 1 -d 30 http://localhost:8080/v1/friends --latency
