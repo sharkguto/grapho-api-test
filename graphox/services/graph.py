@@ -17,7 +17,8 @@ class GraphService(object):
         if g_dict is None:
             g_dict = []
         self._g_dict = g_dict
-        self.g_networkx = nx.Graph(g_dict)
+        # self.g_networkx = nx.Graph(g_dict)
+        self.g_networkx = nx.MultiGraph(g_dict)
 
     def get_friend_of_friend_mine(self, person: str) -> List:
         """Get who is not friend but can be
@@ -69,17 +70,28 @@ class GraphService(object):
             List: all people
         """
 
-        count_paths = {i: 0 for i in self._g_dict.keys()}
+        count_paths = {i: [] for i in self._g_dict.keys()}
 
         for person in self._g_dict.keys():
             for friend in self._g_dict[person]:
-                count_paths[person] += len(
-                    list(
-                        nx.all_simple_paths(
-                            self.g_networkx, source=person, target=friend
+                count_paths[person].extend(
+                    [
+                        val
+                        for sublist in list(
+                            nx.all_simple_paths(
+                                self.g_networkx, source=person, target=friend
+                            )
                         )
-                    )
+                        for val in sublist
+                    ]
                 )
+                # count_paths[person].extend(
+                #     list(
+                #         nx.all_simple_paths(
+                #             self.g_networkx, source=person, target=friend
+                #         )
+                #     )
+                # )
 
         # order_dict_paths = {i: [] for _, i in count_paths.items()}
         order_dict_paths = {

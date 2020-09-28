@@ -21,6 +21,6 @@ SWAGGER_DOCS = True if os.getenv("SWAGGER_DOCS", "0") == "1" else False
 FILEPATH = "datasource/friends.json"
 
 # json hard-coded
-FILEPATH = "datasource/friends.hard.json"
+#FILEPATH = "datasource/friends.hard.json"
 
 origins = ["http://localhost", "http://localhost:3000"]
