@@ -7,6 +7,7 @@
 
 from typing import List
 from networkx import nx
+from graphox.helpers.requestvars import g
 
 
 class GraphService(object):
@@ -18,10 +19,25 @@ class GraphService(object):
         self._g_dict = g_dict
         self.g_networkx = nx.Graph(g_dict)
 
+    def save_new_person(self, person: str, friends: List[str]):
+        """Save new person on dictonary
+
+        Args:
+            person (str): person first name
+            friends (List[str]): list of friends
+        """
+
+        if not set(self._g_dict.keys()).intersection(set(friends)):
+            return False
+
+        self._g_dict[person] = friends
+        g().friends = self._g_dict.copy()
+        return True
+
     def get_people(self) -> List:
         """initial result: [Ana, Maria, Vinicius, Luiza, João, Carlos]
 
-        I think i need to bring ordered by number of paths first, and second by name
+        I think i need to bring ordered people by number of paths first, and second by name
         Returns:
             List: all people
         """
@@ -48,10 +64,10 @@ class GraphService(object):
         for k, v in count_paths.items():
             order_dict_paths[f"{v}"].add(k)
 
-        sort_orders = sorted(order_dict_paths.items(), key=lambda x: x[1], reverse=True)
+        # sort_orders = sorted(order_dict_paths.items(), key=lambda x: x[1], reverse=True)
 
         # {f"{v}": map(lambda k: k,k) for k, v in count_paths.items()}
 
-        return sort_orders
+        return list(self._g_dict.keys())
         # list(self._g_dict.keys())
 

@@ -6,10 +6,13 @@
 # @Link   : https://github.com/sharkguto
 
 
+from typing import List
 from fastapi import APIRouter, HTTPException
+from fastapi.params import Query
 from graphox.services.graph import GraphService
 from starlette.responses import Response
 from starlette.status import (
+    HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
 )
@@ -59,3 +62,23 @@ async def get_kpis_fornec(response: Response):
 
     return graph_svc.get_people()
 
+
+@router.post("/friends", tags=["add"])
+async def get_kpis_fornec(
+    response: Response,
+    person: str,
+    friends: List[str] = Query(["Gustavo"]),
+    status_code=HTTP_201_CREATED,
+):
+    """
+    Expected result
+    [Ana, Maria, Vinicius, Luiza, João, Carlos]
+    """
+
+    graph_svc = GraphService(g().friends)
+    saved = graph_svc.save_new_person(person=person, friends=friends)
+
+    if not saved:
+        raise HTTPException(HTTP_400_BAD_REQUEST)
+
+    return {"success": saved}
