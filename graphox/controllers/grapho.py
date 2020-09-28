@@ -33,7 +33,9 @@ async def get_friends_from_person(
     if not person in g().friends.keys():
         raise HTTPException(status_code=HTTP_404_NOT_FOUND)
 
-    return {"person": g().friends[person]}
+    graph_svc = GraphService(g().friends)
+
+    return graph_svc.get_friends(person=person)
 
 
 @router.get("/not-friends/{person}", tags=["not-friends"])
@@ -48,7 +50,9 @@ async def get_not_friends_from_person(
     if not person in g().friends.keys():
         raise HTTPException(status_code=HTTP_404_NOT_FOUND)
 
-    return {"person": g().friends[person]}
+    graph_svc = GraphService(g().friends)
+
+    return graph_svc.get_friend_of_friend_mine(person=person)
 
 
 @router.get("/friends", tags=["all"])

@@ -18,7 +18,7 @@ API_V1_STR = "/v1"
 
 SWAGGER_DOCS = True if os.getenv("SWAGGER_DOCS", "0") == "1" else False
 
-# FILEPATH = "datasource/friends.json"
+FILEPATH = "datasource/friends.json"
 
 # json hard-coded
 FILEPATH = "datasource/friends.hard.json"

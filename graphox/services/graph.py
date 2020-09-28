@@ -19,7 +19,29 @@ class GraphService(object):
         self._g_dict = g_dict
         self.g_networkx = nx.Graph(g_dict)
 
-    def save_new_person(self, person: str, friends: List[str]):
+    def get_friend_of_friend_mine(self, person: str) -> List:
+        """Get who is not friend but can be
+
+        Args:
+            person (str): person name
+
+        Returns:
+            List: of not friends
+        """
+        return ["Luiza"]
+
+    def get_friends(self, person: str) -> List:
+        """Get all friends from person
+
+        Args:
+            person (str): Person name
+
+        Returns:
+            List: of friends
+        """
+        return self._g_dict[person]
+
+    def save_new_person(self, person: str, friends: List[str]) -> bool:
         """Save new person on dictonary
 
         Args:
