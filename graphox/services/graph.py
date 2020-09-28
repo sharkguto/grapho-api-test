@@ -18,18 +18,18 @@ class GraphService(object):
         if g_dict is None:
             g_dict = []
         self._g_dict = g_dict
-        # self.g_networkx = nx.Graph(g_dict)
-        self.g_networkx = nx.MultiGraph(g_dict)
+        self.g_networkx = nx.Graph(g_dict)
+        # self.g_networkx = nx.MultiGraph(g_dict)
 
         pos = nx.spring_layout(self.g_networkx)
         nx.draw(
             self.g_networkx, pos, node_color="blue", font_size=8, font_weight="bold",
         )
-
+        # debuging only
         plt.savefig("debug-only.png", format="PNG")
 
     def get_friend_of_friend_mine(self, person: str) -> List:
-        """Get who is not friend but can be
+        """Get who is not friend mine but can be (2 connection)
 
         Args:
             person (str): person name
@@ -37,7 +37,33 @@ class GraphService(object):
         Returns:
             List: of not friends
         """
-        return ["Luiza"]
+        all_path = []
+        for people in self._g_dict.keys():
+            all_path.extend(
+                [
+                    i
+                    for i in list(
+                        nx.all_simple_paths(
+                            self.g_networkx, source=person, target=people
+                        )
+                    )
+                    if len(i) == 3
+                ]
+            )
+
+        # difference
+
+        friends_and_friend_of_friends_mine = set(
+            [i_friend for list_friends in all_path for i_friend in list_friends]
+        )
+
+        second_connection = friends_and_friend_of_friends_mine.difference(
+            set(self._g_dict[person])
+        )
+
+        second_connection.remove(person)
+
+        return list(sorted(second_connection, reverse=False))
 
     def get_friends(self, person: str) -> List:
         """Get all friends from person
@@ -78,38 +104,38 @@ class GraphService(object):
             List: all people
         """
 
-        count_paths = {i: [] for i in self._g_dict.keys()}
+        # count_paths = {i: [] for i in self._g_dict.keys()}
 
-        for person in self._g_dict.keys():
-            for friend in self._g_dict[person]:
-                count_paths[person].extend(
-                    [
-                        val
-                        for sublist in list(
-                            nx.all_simple_paths(
-                                self.g_networkx, source=person, target=friend
-                            )
-                        )
-                        for val in sublist
-                    ]
-                )
-                # count_paths[person].extend(
-                #     list(
-                #         nx.all_simple_paths(
-                #             self.g_networkx, source=person, target=friend
-                #         )
-                #     )
-                # )
+        # for person in self._g_dict.keys():
+        #     for friend in self._g_dict[person]:
+        #         count_paths[person].extend(
+        #             [
+        #                 val
+        #                 for sublist in list(
+        #                     nx.all_simple_paths(
+        #                         self.g_networkx, source=person, target=friend
+        #                     )
+        #                 )
+        #                 for val in sublist
+        #             ]
+        #         )
+        #         count_paths[person].extend(
+        #             list(
+        #                 nx.all_simple_paths(
+        #                     self.g_networkx, source=person, target=friend
+        #                 )
+        #             )
+        #         )
 
         # order_dict_paths = {i: [] for _, i in count_paths.items()}
-        order_dict_paths = {
-            f"{i}": set() for i in sorted(set(count_paths.values()), reverse=True)
-        }
+        # order_dict_paths = {
+        #     f"{i}": set() for i in sorted(set(count_paths.values()), reverse=True)
+        # }
 
         # for k_tmp in
 
-        for k, v in count_paths.items():
-            order_dict_paths[f"{v}"].add(k)
+        # for k, v in count_paths.items():
+        #     order_dict_paths[f"{v}"].add(k)
 
         # sort_orders = sorted(order_dict_paths.items(), key=lambda x: x[1], reverse=True)
 
