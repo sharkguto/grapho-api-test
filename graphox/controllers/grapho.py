@@ -43,7 +43,7 @@ async def get_not_friends_from_person(
     response: Response, person: str = "Gustavo",
 ):
     """ 
-    Get first connection friends from person
+    Get second connection friends from person
     """
     if not person:
         raise HTTPException(status_code=HTTP_400_BAD_REQUEST)
@@ -58,7 +58,9 @@ async def get_not_friends_from_person(
 @router.get("/friends", tags=["all"])
 async def get_all_people(response: Response):
     """
-    Expected result
+    Get all people from network graph
+
+    **Expected result
     [Ana, Maria, Vinicius, Luiza, João, Carlos]
     """
 
@@ -74,8 +76,7 @@ async def put_new_person_and_friends(
     response: Response, person: str, friends: List[str] = Query(["Gustavo"]),
 ):
     """
-    Expected result
-    [Ana, Maria, Vinicius, Luiza, João, Carlos]
+    Add new person to network graph
     """
 
     graph_svc = GraphService(g().friends)
