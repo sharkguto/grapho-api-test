@@ -1,31 +1,45 @@
 # grapho-api-test
 
-Api em python async exemplificando uso de grafos
+Api em python async exemplificando uso de grafos - Exercicio
 
-## stack
+## Stack
 
 - fastapi
+- networkx
 - docker
+- pytest-cov
 - python 3.8
 
-## dependencias
+## Dependencias
 
 ```bash
 sudo python3 -m pip install -r requirements.txt --upgrade
 ```
 
-## diagrama de exemplo
+## Diagrama do grafo
 
 ![grapho1](docs/img/grapho.png)
 
-## variaveis de ambiente
+## Variaveis de ambiente
 
 ```bash
 SWAGGER_DOCS=1 # deixa ativado a interface de swagger na api
 ```
 
-## Rotas
+## Executar
 
-|     |     |
-| --- | --- |
-|     |     |
+```bash
+docker-compose up --build
+```
+
+## Pagina de acesso da api
+
+swagger : `http://0.0.0.0:8080/docs`
+
+## Testes
+
+Executar com pytest, conforme comando abaixo:
+
+```bash
+pytest --cov=graphox tests/ --cov-fail-under=70 --disable-pytest-warnings
+```
