@@ -8,7 +8,8 @@
 from typing import List
 from networkx import nx
 from graphox.helpers.requestvars import g
-import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 
 
 class GraphService(object):
@@ -21,12 +22,12 @@ class GraphService(object):
         self.g_networkx = nx.Graph(g_dict)
         # self.g_networkx = nx.MultiGraph(g_dict)
 
-        pos = nx.spring_layout(self.g_networkx)
-        nx.draw(
-            self.g_networkx, pos, node_color="blue", font_size=8, font_weight="bold",
-        )
-        # debuging only
-        plt.savefig("debug-only.png", format="PNG")
+        # pos = nx.spring_layout(self.g_networkx)
+        # nx.draw(
+        #     self.g_networkx, pos, node_color="blue", font_size=8, font_weight="bold",
+        # )
+        # # debuging only
+        # plt.savefig("debug-only.png", format="PNG")
 
     def get_friend_of_friend_mine(self, person: str) -> List:
         """Get who is not friend mine but can be (2 connection)

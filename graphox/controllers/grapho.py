@@ -86,3 +86,21 @@ async def put_new_person_and_friends(
         raise HTTPException(HTTP_400_BAD_REQUEST)
 
     return {"success": saved}
+
+
+@router.get("/x", tags=["friends"])
+async def get_bench(
+    response: Response, person: str = "Ana",
+):
+    """ 
+    Get first connection friends from person
+    """
+    if not person:
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST)
+    if not person in g().friends.keys():
+        raise HTTPException(status_code=HTTP_404_NOT_FOUND)
+
+    graph_svc = GraphService(g().friends)
+
+    return graph_svc.get_friends(person=person)
+
