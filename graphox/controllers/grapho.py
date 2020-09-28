@@ -65,8 +65,8 @@ async def get_all_people(response: Response):
     """
 
     graph_svc = GraphService(g().friends)
-
-    return graph_svc.get_people()
+    result = await graph_svc.get_people()
+    return result
 
 
 @router.put(

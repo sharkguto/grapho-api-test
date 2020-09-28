@@ -97,7 +97,7 @@ class GraphService(object):
         g().friends = self._g_dict.copy()
         return True
 
-    def get_people(self) -> List:
+    async def get_people(self) -> List:
         """initial result: [Ana, Maria, Vinicius, Luiza, João, Carlos]
 
         I think i need to bring ordered people by number of paths first, and second by name
