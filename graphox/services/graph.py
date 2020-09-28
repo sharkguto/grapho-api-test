@@ -27,7 +27,12 @@ class GraphService(object):
             friends (List[str]): list of friends
         """
 
-        if not set(self._g_dict.keys()).intersection(set(friends)):
+        if person in friends:
+            return False
+
+        intersection = set(self._g_dict.keys()).intersection(set(friends))
+
+        if len(friends) != len(intersection):
             return False
 
         self._g_dict[person] = friends

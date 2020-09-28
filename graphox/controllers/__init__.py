@@ -11,5 +11,5 @@ from graphox.controllers import grapho
 
 
 api_router = APIRouter()
-#api_router.include_router(db_query.router, tags=["database"])
+
 api_router.include_router(grapho.router, tags=["friends"])

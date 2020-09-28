@@ -22,7 +22,7 @@ router = APIRouter()
 
 
 @router.get("/friends/{person}", tags=["friends"])
-async def get_kpis_fornec(
+async def get_friends_from_person(
     response: Response, person: str = "Gustavo",
 ):
     """ 
@@ -37,7 +37,7 @@ async def get_kpis_fornec(
 
 
 @router.get("/not-friends/{person}", tags=["not-friends"])
-async def get_kpis_fornec(
+async def get_not_friends_from_person(
     response: Response, person: str = "Gustavo",
 ):
     """ 
@@ -52,7 +52,7 @@ async def get_kpis_fornec(
 
 
 @router.get("/friends", tags=["all"])
-async def get_kpis_fornec(response: Response):
+async def get_all_people(response: Response):
     """
     Expected result
     [Ana, Maria, Vinicius, Luiza, João, Carlos]
@@ -63,12 +63,11 @@ async def get_kpis_fornec(response: Response):
     return graph_svc.get_people()
 
 
-@router.post("/friends", tags=["add"])
-async def get_kpis_fornec(
-    response: Response,
-    person: str,
-    friends: List[str] = Query(["Gustavo"]),
-    status_code=HTTP_201_CREATED,
+@router.put(
+    "/friends", tags=["add"], status_code=HTTP_201_CREATED,
+)
+async def put_new_person_and_friends(
+    response: Response, person: str, friends: List[str] = Query(["Gustavo"]),
 ):
     """
     Expected result
